@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { reset } from "../actions";
+import { reset, returnData, datasActions } from "../../store/index";
 
 const songsSlice = createSlice({
   name: "song",
@@ -9,15 +9,23 @@ const songsSlice = createSlice({
       state.push(action.payload);
     },
     removeSong(state, action) {
-      // action.payload === string, the song we want to remove
       const index = state.indexOf(action.payload);
       state.splice(index, 1);
     }
   },
   extraReducers(builder) {
-    builder.addCase(reset, (state, action) => {
-      return [];
-    });
+    builder
+      .addCase(reset, (state, action) => {
+        return [];
+      })
+      .addCase(returnData, (state,action)=> {
+        console.log({returnDataACTION: action});
+        return state;
+      })
+      .addCase(datasActions, (state,action)=> {
+        console.log({datasActions: action});
+        return state;
+      });
   }
 });
 
